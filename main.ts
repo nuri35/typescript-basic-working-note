@@ -1,3 +1,4 @@
+import { Product } from "./exercise/Product";
 const selam = () => {
   console.log("selamlar diliyorum");
 };
@@ -392,5 +393,102 @@ console.log(learnLocation);
  *
  *
  * example interfaces reality
- *
+ *bir ornek uzerınden gidelim  bir şirkette stop takip projemız var veritabanı işşlemlerı yapacaz her veri tabanında mysql mongodb vs işlemler bellidir crud işlemleri yani ve bu mysql classı mongo db classı olsun bir class olusturdugumuzda service yani bu service clasında crud işlemleri yapılır işte bu durumlarda eğer biz  yapılması gereken crud metotlarını bir interfacede depolarsanız ve burda   tür işlemlerini yaparsınız daha sonra gider classlara dersin bu interface'i implement etmek zorundasınız işte interfaceın mantıgını anlamış oluyoruz bildigin gibi zaten
  */
+
+export interface IDatabase {
+  //bak şuan yazdıgımız bu metotlar hiç bir iş yapmıyor ayrıca türünü felanda belirlciez burda
+  add(): void;
+  get(): Product[];
+  update(): void;
+  delete(): void;
+}
+
+class Mysql implements IDatabase {
+  add() {
+    console.log("added");
+    throw new Error("Method not implemented.");
+  }
+  get() {
+    return [];
+  }
+  update() {
+    throw new Error("Method not implemented.");
+  }
+  delete() {
+    throw new Error("Method not implemented.");
+  }
+}
+
+class MongoDb implements IDatabase {
+  add() {
+    console.log("added mongo vs");
+    throw new Error("Method not implemented.");
+  }
+  get() {
+    return [];
+  }
+  update() {
+    throw new Error("Method not implemented.");
+  }
+  delete() {
+    throw new Error("Method not implemented.");
+  }
+}
+
+//database: IDatabase yaparak biz diyoruzki  ben sana  IDatabasi implement eden bir class gönderecegım db olarak mongo db mysql vs olabilir yanı ben bu fonksıyonu cagırdıgımda database diye bir value yollayacagım onun tipi Idatabase oluversın diyorum  bende  addDatabase(new Mysql()); diyorum  new Mysql() zaten Idatabase'i implement ettigi için  class mysql yolladıgımda oluyor . ayrıca sonuç olarak ben mongodb classı yarattıgımda   hiç biryere ellemeden onun ıcınde 1 tane yarattıgım ınterface  geçerli oluyor addDatabase(new MongoDb()); yaparak onuda çalıştırmıs olabılıoyurm cunku ondada Idatabasi implement ediyoruz ve böylelikle addDatabase fonskıyonunu degıstırmemıze gerek kalmıyor
+function addDatabase(database: IDatabase) {
+  //
+  database.add();
+}
+
+addDatabase(new Mysql());
+addDatabase(new MongoDb());
+
+// en son not :classlardan implementleri kaldırıırsak interface kullanmasaydık  addDatabase diye fonksıoyunumuz var mysql ekle dedik mysql ekledık tabı fonksıyonun parametre kısmıda addDatabase(database:Mysql ) olacaktı ee buseferde mongo db için yap dedıgınde gıne adddatabase diye bir fonksıyon yaratmamız lazımkı onun ıcınde yanı sonuc olarak bazi şeyleri IDatabase interface diyerek ortak çatıda topluyoruz
+
+/**
+ *
+ *
+ * abstract class
+ *bu classlarda aslında interface ile inheritancın birleşmiş hali gibi düşün hem gövdeli hem gövdesiz metotlarımızı yazabılıyoruz  başka classlar bu abstrack classlardan kalıtım yapıyor
+ */
+
+//eğer bizim bazi metotlarımız ortak ise  kopyala yapıstır yapmak yerine ortak mettotlarımızı bu classın ıcınde depoloyabilriiz mesela get metotumuz  ortak ise ; bu abstract classından kalıtıım yapan tüm classlarımız  buna otamatık sahıp olur birdaha kendı ıclerınde yazmak zorunda kalmazlar
+abstract class Database {
+  get() {
+    console.log();
+  }
+  add() {
+    console.log();
+  }
+  //fakat bunlar herkese göre degişecek bunları gövdesız olarak bırakbılrızm
+  abstract update(): void;
+  abstract delete(): void;
+}
+
+class Mysql2 extends Database {
+  update() {
+    throw new Error("Method not implemented.");
+  }
+  delete() {
+    throw new Error("Method not implemented.");
+  } //mesela kalıttık işte ortak olanları kullanmadık birdaha burda ama birde govdesızlerı örnegın delete diyelim kullanmasak hata verecektır sanki interface gibi olur bunları kalıtmadık kendımıze göre yazmamız gerekıyor bukaa
+}
+
+class MongoDb2 extends Database {
+  update() {
+    throw new Error("Method not implemented.");
+  }
+  delete() {
+    throw new Error("Method not implemented.");
+  }
+}
+
+function addDatabase2(database: Database) {
+  //
+  database.delete();
+}
+
+addDatabase2(new Mysql2()); //bu sekılde interface'in de katkısını burda sankı kullanmıs olduk
+addDatabase2(new MongoDb2());
