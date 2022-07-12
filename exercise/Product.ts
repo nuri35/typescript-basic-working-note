@@ -7,5 +7,3 @@ export class Product {
     //normal class yapsını kullanıyoruz normal olarak js de oldugu gıbı ve typescriptle gelen public private gibi yapıyı kullanıyoruz
   }
 }
-
-let p = new Product(1, "saatci cemal");
