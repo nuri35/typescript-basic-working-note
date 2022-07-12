@@ -387,5 +387,3 @@ newTaxi4.location = { x: 1, y: 7 };
 
 let learnLocation = newTaxi4.location;
 console.log(learnLocation);
-
-
