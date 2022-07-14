@@ -1,4 +1,6 @@
 import { Product } from "./exercise/Product";
+// import fs from "fs";
+
 const selam = () => {
   console.log("selamlar diliyorum");
 };
