@@ -163,13 +163,187 @@ interface IProductService {
 /** interace example arrow functıon */
 
 interface IProductService2 {
-  (name: string, age: number, ye: number, asss: string): number; // 1 tane tanımla tanımlıcaksan arrow func seklınde
+  (name: string, age: number, ye: number, asss: string): number; // 1 tane tanımla tanımlıcaksan bu seklınde 2.3 bu türde bir fonksıyonda kafa karısıyor
 }
 
 let myfunc: IProductService2 = (name, age, ye, asss) => {
   return age;
 };
 
-myfunc("as", 2, 2002, "d");
+myfunc("as", 2, 2, "assa");
 
 /** interace extend  exampke*/
+
+interface MongoDbResponse {
+  _id: string;
+  createAt: string;
+  updateAt: string;
+}
+
+//bir veri cektık gelen verıyı bılıyorsunuz ama  mesela id createAt gibi şeyleride elimizle yazmk istemıyoruz artık ozmaan ;
+
+//kitapları kaydetmisiz mesela veritabanına   veri tabanından gelen kitapların donuş tipini ayarlıcaz burada MongoDbResponse'daki özellikleri de sahip olmak için kalıtırız
+interface BookResponse extends MongoDbResponse {
+  name: string;
+  date: string;
+}
+
+//veri ceken bir func yazalaım
+
+function getBooks(): BookResponse {
+  return {
+    _id: "2133232",
+    createAt: "assa",
+    updateAt: "dsdffd",
+    name: "xxx kiptap",
+    date: "bilmem kacıncı gun",
+  };
+}
+
+//** farklı class ornegı */
+
+class Students {
+  public name: string; //burda tanımlaman lazım this.name hata verir yoksa
+  constructor(name: string, last: string) {
+    this.name = name;
+  }
+  yazdır() {
+    console.log(this.name);
+  }
+} //bunun yerine daha kısa yolu var
+
+class StudentsKısayol {
+  constructor(public name: string, private last: string) {
+    this.name = name;
+  }
+
+  yazdır() {
+    console.log(this.name);
+  }
+}
+
+let a = new Students("nuri", "şen");
+let b = new StudentsKısayol("nuri", "şen");
+
+/**TypeScript Dersleri / Yardımcı Tipler (Utility Types) */
+
+interface Personobj {
+  name: string;
+  last: string;
+  age: number;
+}
+//Person dersek omit yerine name last age hepsını yazmamızlazım omit diyerek <> içine istemedigimiz tipi yazarak cıkartacka
+let people: Omit<Personobj, "age">;
+
+people = {
+  name: "nuri",
+  last: "şen",
+};
+/**
+ *
+ */
+interface Obj {
+  memleket: string;
+  kutuk: string;
+}
+
+/** interface ve type arasında fark ıcın burda guzel anlatmıs   https://hvsonmez.medium.com/typescript-intersection-type-ve-interfaces-6f65fdcee5ea */
+
+type AsdasTip = Obj; //exmp
+
+/** function example*/
+
+function writersExmp(val: { name: string; age: number }): object {
+  return val;
+}
+//parametredeki tipi alabilriz
+type AsdasTip2 = Parameters<typeof writersExmp>[0]; //[0] yap cunku  parametrenin tiplerini alırken oyle yap yoksa hata verir
+
+let cubuk: AsdasTip2 = {
+  name: "sdds",
+  age: 22,
+};
+
+/**
+ * readonly type
+ */
+
+interface PersonEx {
+  name: string;
+  age: number;
+  married: boolean;
+}
+
+let cx: PersonEx = { name: "nurettin", age: 22, married: false };
+
+interface PersonExa {
+  name: string;
+  age: number;
+  married: boolean;
+}
+
+let cxaa: Readonly<PersonExa>;
+cxaa = {
+  name: "nurettin",
+  age: 22,
+  married: false,
+};
+// cxaa.age = 22 atama yapılmaz readonly cunmku
+
+/**
+ * Pick
+ */
+//PersonEx interfacesinden sadece name sahıp olsun ıstıyoruz
+let abx: Pick<PersonEx, "name"> = {
+  name: "denız",
+};
+
+/**
+ *Exclude
+ */
+
+type qw = Exclude<string | number | (() => void) | boolean, number>; //bu sekılde number'ları yok say diyoruz virgul ile
+
+let lsqz: qw = () => {
+  return 1; //voiddden dolayı yoksayar
+};
+
+/**
+ * return type
+ */
+function returnNumberFn(): string {
+  return "25";
+}
+//ReturnType ile fonksıyonun dondurdugu şeyin tipini alır
+const myvalue: ReturnType<typeof returnNumberFn> = "dsd";
+
+/**
+ * enum
+ */
+
+enum Notifaction {
+  success,
+  error,
+  warning,
+}
+
+function sendNotfn(params: Notifaction): string {
+  //
+  if (params === 0) {
+    return "good success";
+  }
+  return "ohhh nooo";
+}
+
+sendNotfn(0);
+
+/**
+ *
+ * symbol
+ */
+
+const sym = Symbol(); //bunlar uniq oldugu ıcınde const yap degıskenı
+let obj = {
+  [sym]: "value", //key olara kullanaılabılır
+};
+console.log(obj[sym]); // "value" symbollar uniqdir başka bir symbol olusunca onla eşit degildir sym2 === sym3; // false, symbols are unique

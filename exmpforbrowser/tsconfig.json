@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2016",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "sourceMap": true,
+
+    "removeComments": true,
+
+    "esModuleInterop": true,
+
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "dist",
+    "rootDir": "src",
+
+    "skipLibCheck": true
+  }
+}

@@ -17,7 +17,7 @@ export class ProductService implements IProductService {
   getById(id: number) {
     return this.products.filter((p) => p.id === id)[0]; //1 tane almak ıcın [0] dedık
   }
-  getProducts() {
+  getProducts(): Product[] {
     return this.products;
   }
   saveProduct(product: Product): void {
