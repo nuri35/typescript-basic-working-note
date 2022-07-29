@@ -6,8 +6,7 @@ type voidFunc = () => void;
 let f1: voidFunc;
 
 f1 = function f1() {
-  //ayrıca f1() :{blablabla} void bu sekılde belırtırsem hata verır ancak f1 için hatta f1 için f1() :{blablabla} string dersem string dondurebılrım
-  return false; //hata vermez return false dedıgımde zorlamaz void olmasına return false dedım dırek  fonksıyonun dipi boolen oldu
+  return false;
 };
 
 // function f2(): void { normal fonksıyonlar ıcınde bu yazılımda hata verecektır
@@ -24,19 +23,43 @@ interface Deneme {
   res: boolean;
 }
 
-// function Returner<T = string>(par: T) {
-//   return par;
-// }
-
-// const c = Returner<Deneme>({ text: "asd", res: true });
-
-function Returner<T = Deneme>(par: T) {
-  let a: T;
-  a = par;
-  return a;
+function Returner<T = number>(par: string) {
+  //
+  console.log(typeof par);
 }
 
-const c = Returner(2); //Returner(2); ve Returner<T = Deneme> olsa dahi sen Returner(2); dedıgın ıcın orotmatıktman function Returner<2>(par: 2): 2 seklınde olur ve  Returner<T = Deneme> burayı overwrite eder hata vermez  fakat Returner<other tip>({ text: "ana" }); dersen başka tip olarak overwrite eder ayrıca uygulamassan o tipin kurallarını bu sefer hata verir çünkü belirtiyorsun <> yaparak en son  Returner<Deneme<({ text: "ana" }); diyerek overwrite etmene gerek yok zaten fonksıyonda o gine <> belirttiigin için uygulamassan kuralı hata verir
+// Returner(false); calısıtırsan hata verir
+
+function Returner2x<T = number>(par: T) {
+  //
+  console.log(typeof par);
+}
+
+Returner2x(false); //hata vermez üstüne gelip bakarsın
+
+function Returner2xx<T = number>(par: string) {
+  //T'yi içerde kullanırsın
+  // let xsa: T = bla bla bla hata vermıcek birşey eklenebilri
+}
+
+Returner2xx<boolean>("false");
+
+function deneme<T = number>(par: T) {
+  //
+  // console.log(typeof par);
+}
+
+deneme<boolean>(true);
+
+function Returnerabc<T = Deneme>(par: T) {
+  // let a: T;
+  // a = par;
+  // return a;
+}
+
+// Returnerabc<string>(2); //hata verir
+Returnerabc<number>(2); //good
+//Returnerabc(2); ve üstte Returner<T = Deneme> olsa dahi sen Returner(2); dedıgın ıcın orotmatıktman function Returner<2>(par: 2): 2 seklınde olur ve  Returner<T = Deneme> burayı overwrite eder hata vermez  fakat Returner<other tip>({ text: "ana" }); dersen başka tip olarak overwrite eder ayrıca uygulamassan o tipin kurallarını bu sefer hata verir çünkü belirtiyorsun <> yaparak en son  Returner<Deneme<({ text: "ana" }); diyerek overwrite etmene gerek yok zaten fonksıyonda o gine <> belirttiigin için uygulamassan kuralı hata verir
 
 /**
  * eaxample
