@@ -35,7 +35,7 @@ function Returner2x<T = number>(par: T) {
   console.log(typeof par);
 }
 
-Returner2x(false); //hata vermez üstüne gelip bakarsın
+Returner2x("false"); //hata vermez üstüne gelip bakarsın
 
 function Returner2xx<T = number>(par: string) {
   //T'yi içerde kullanırsın
@@ -68,10 +68,10 @@ Returnerabc<number>(2); //good
 //  [string, any][] buna şaşma aynı şöyle düşün Product[] yani product interface oldugunu dusun içinde key value'lar var bunun dışındaki olacak şeyde birarray yani [{}] şeklinde  burdan yola çıkarak bu [string, any][]'da  [["kadir","ana"]]
 function createHeader<T = [string, any][]>(params: T) {
   //
-  return params;
+  // return params;
 }
 
-createHeader(true); // <> belirtmedıgım ıcın hata vermez function createHeader<true>(params: true): true böyle olur yani artık T = true
+createHeader(true);
 
 // extends ile yukardaki fonskıyon gibi yapamıyoruz
 function createHeader2<T extends string | [string, any][]>(params: T) {
@@ -79,10 +79,68 @@ function createHeader2<T extends string | [string, any][]>(params: T) {
   return params;
 }
 
-// createHeader2(true); hata verri
+// createHeader2(true); hata verri ama params: false dersen hata vermez
 
 createHeader2([["adana", 25]]); //burda <> yapmasanda  createHeader2 fonskyonu parametresinde belirttihin türe sadık kalmalısın
 
 // createHeader2<number>([["adana", 25]]); // createHeader2 fonksıyonda belırtılen <>'deki tür tanımlamalarını secebılrısn
 
-createHeader2<string>("as");
+// createHeader2<string>("as");
+
+/****
+ *
+ *
+ *
+ */
+
+interface Abc<P = string, CarCount = number> {
+  text: P;
+  count: CarCount;
+}
+
+let a: Abc<boolean, string>; //tipleri overrite etmiş olduk
+
+// a = {
+//   text: "sasa",
+//   count: 2,
+// }; hata verecektır
+
+a = {
+  text: false,
+  count: "sayıdır",
+};
+
+
+
+
+
+/***
+ * 
+ * 
+ * 
+ */
+
+class Producta {
+  constructor(
+    public id: number,
+    public name: string,
+    public category?: string
+  ) {
+   
+  }
+}
+
+
+
+let arr = new Array<Producta> // Array'e tıkladıgında gorcenkı <T > seklınde alıyormus  oda Producta  ondan dolayı biz yenı olusturulan arrayın ıcınde Producta turunde bırşey kullancagımızı soyluyoruz teyıt ıcın lutfen new Array'ye tıkla anlıcan
+
+
+/***
+ * 
+ * 
+ */ //EXMP TODOS DOSYASINA BAK ORNEK VAR 
+ import { denemeFn, denemeFnType } from './exmpTodos';
+ denemeFn()
+
+
+ denemeFnType("https://jsonplaceholder.typicode.com/todos/4")
