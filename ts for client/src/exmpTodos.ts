@@ -13,3 +13,5 @@ export async function denemeFnType<T extends object | any[]>(
   const json: T = await response.json(); //burdada json ne turde olcagını verdık ve donus tıpını belırlemıs olduk aslında
   return json;
 }
+
+
