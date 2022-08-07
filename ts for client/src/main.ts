@@ -491,4 +491,39 @@ function functionfy<T extends { [key: string]: any }>(param: T) {
 
 // functionfy(myObject).age vs ulasabıldık
 
-console.log(functionfy(myObject).age() + " " + " burdayım");
+console.log(functionfy(myObject).channel + " " + " burdayım fn");
+
+/**
+ *
+ *
+ */
+
+function makeEnum<T extends string>(...keys: T[]) {
+  type CustomEnum = {
+    //yanı key string value numbr demıs olduk
+    [Key in T]: number;
+  };
+
+  //keys dizisinin anahtarlarını alıyorum 0 1 2 dıye array oluyor artan Object.keys(keys) ıle
+  const obj = Object.keys(keys).reduce(
+    (acc: CustomEnum, currentNumber: string) => {
+      //acc dedıgı şey    {} as CustomEnum'dekı suankı degerı gelecek yanı ıntıalValue'dakı guncellenmış değer
+      return {
+        ...acc, //ıntıalValue'dakı guncellenmış değere yenı deger eklemesı ... ile yapılabılır
+        [keys[Number(currentNumber)]]: currentNumber, //yanı keys arrayın currentnumber degerı key olur : yanı value ıse currentnumber olur yanı {syntaxErr:0} seklını alır sonra  2.defa gelınce burda ...acc dıyerek acc neydı bir oncekı guncellenmıs deger objesı onun yaınna yenı degerı ekler yani {syntaxErr:0,specherror:1} seklını alır superrrr.....
+      };
+    },
+    {} as CustomEnum
+  );
+
+  return obj;
+}
+
+const Errors = makeEnum("syntaxErr", "specherror", "runtimeError");
+console.log(Errors);
+console.log(
+  Errors.specherror +
+    " değerini aldık enum gıbı yaptık hanı enum belırtıp . diyince değerine ulasırdık onun gibi"
+);
+
+//burda kal  yukarıyı cok guzel anladın devam edersın
