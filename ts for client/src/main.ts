@@ -457,4 +457,38 @@ function isPerson(arg: any): arg is PersonlıkeThat {
   return false;
 }
 
-//kal burda
+/**
+ *
+ * Obje Tiplendirme 2
+ *
+ */
+
+const myObject = {
+  name: "kadir",
+  channel: "viorene",
+  age: 22,
+};
+
+// myObject.name diyip calıstırmak yerıne fonksıyon olarak ulaşmak ıstesem   myObject.name() seklınde yapınca name'ın degerı donsun pekı nasıl yapaca işte cevabı functionfy
+
+function functionfy<T extends { [key: string]: any }>(param: T) {
+  //tip belırlıyelım unutma bununla  [key: keyof typeof param]: bu aynı şey  [key: keyof T]:
+  type FunctionObj = {
+    [Key in keyof T]: string; // yan ıburda dıyoruz kı FunctionObj objenın ıcındekı key T objemızın anahtarlarından olsun
+    //ayrıca  yukarda myObject age number ama burda value kısımların hepsı strıng dıyor  [Key in keyof T]: string; bu şekilde dolayısyla functionfy(myObject).age dedıgmızde gorecegızkı age strıng oluyor artık
+  };
+
+  type FunctionObjtwo = {
+    [Key in keyof T]: T[Key];
+  }; // bunu yaparsam functionfy(myObject).age artık age number dıyeecek denersın yanı myObject dekı tıpler olur
+
+  type FunctionObjtwoFn = {
+    [Key in keyof T]: () => T[Key];
+  }; // fonksıyon calıstırmamız gerekır bu sekılde yaparsakda
+
+  return param as FunctionObjtwoFn; // belirtmem lazım
+}
+
+// functionfy(myObject).age vs ulasabıldık
+
+console.log(functionfy(myObject).age() + " " + " burdayım");
