@@ -424,13 +424,15 @@ class Personden {
 
 class PersonlıkeThat {
   // id: string; // bunu yazmassan yada constructorda yazmazsan tur tanımlamasını sana kızıyor ya orda ya cosntrcutorda belırtmen lazımkı constructır {} parantez kısmında this.id dedıgınde türleri belirtilmiş olsun ben artık  this.id'e 2 number veremıyorum onun ıcın this.name ile constructordakı isimde aynı olması lazım
+
   constructor(public name: string, public surname: string, private id: string) {
     this.id = Math.random().toString();
     this.name = name;
     this.surname = surname;
+    // console.log(surname + "xas");
   }
   asx(): void {
-    console.log(this.id + "helloo");
+    console.log(this.id + "helloo" + this.name);
   }
 }
 
